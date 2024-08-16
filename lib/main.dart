@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+//import 'package:flutter/painting.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +34,14 @@ class QuestionGround extends StatefulWidget {
 }
 
 class _QuestionGroundState extends State<QuestionGround> {
+  List<Widget> scoreTracker = [];
+  List<String> questions = [
+    'Sharks are mammals.',
+    'Sea otters have a favorite rock they use to break open food.',
+    'The two longest rivers in the world are the Mississippi and the Nile.'
+        'A Slut\'s blood is green.'
+  ];
+  var questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,12 +49,13 @@ class _QuestionGroundState extends State<QuestionGround> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
+          //Main Questions to Display
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'Questions',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -57,13 +66,23 @@ class _QuestionGroundState extends State<QuestionGround> {
           ),
         ),
         Expanded(
+          //True Icon
           child: Padding(
             padding: EdgeInsets.all(15),
             child: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  scoreTracker.add(
+                    Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                });
+              },
               child: Text(
                 'True',
                 style: TextStyle(
@@ -75,6 +94,7 @@ class _QuestionGroundState extends State<QuestionGround> {
           ),
         ),
         Expanded(
+          //False Icon
           child: Padding(
             padding: EdgeInsets.all(15),
             child: TextButton(
@@ -92,6 +112,10 @@ class _QuestionGroundState extends State<QuestionGround> {
             ),
           ),
         ),
+        Row(
+          children: scoreTracker,
+        )
+        //
       ],
     );
   }
