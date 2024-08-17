@@ -42,6 +42,7 @@ class _QuestionGroundState extends State<QuestionGround> {
         'A Slut\'s blood is green.'
   ];
   var questionNumber = 0;
+  List<bool> correctAnswers = [false, true, true];
   @override
   Widget build(BuildContext context) {
     return Column(
