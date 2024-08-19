@@ -39,12 +39,25 @@ class LogicPage {
     }
   }
 
-  String getQuestionTexts(int _questionNumber) {
+  String getQuestionTexts() {
     return _questionStuffs[_questionNumber].questionMarks;
   }
 
-  bool getCorrectAnswers(int _questionNumber) {
+  bool getCorrectAnswers() {
     return _questionStuffs[_questionNumber].questionAnswers;
+  }
+
+  bool userFinished() {
+    if (_questionNumber >= _questionStuffs.length - 1) {
+      print('Finished!');
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void restartGame() {
+    _questionNumber = 0;
   }
 }
 // There are 20 questions in total

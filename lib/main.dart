@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'logicPage.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 LogicPage logicPage = LogicPage();
 void main() {
@@ -35,12 +36,37 @@ class QuestionGround extends StatefulWidget {
 
 class _QuestionGroundState extends State<QuestionGround> {
   List<Widget> scoreTracker = [];
-  List<String> questions = [
-    'Sharks are mammals.',
-    'Sea otters have a favorite rock they use to break open food.',
-    'The two longest rivers in the world are the Mississippi and the Nile.'
-        'A Slut\'s blood is green.'
-  ];
+
+  void answerMarker(bool userAnswers) {
+    bool correctAnswer = logicPage.getCorrectAnswers();
+    if (userAnswers == correctAnswer) {
+      setState(() {
+        if (logicPage.userFinished() == true) {
+          Alert(
+            context: context,
+            title: 'Finished!',
+            desc: 'You\'ve Finished The Game :).',
+          ).show();
+          logicPage.restartGame();
+          scoreTracker = [];
+        } else {
+          if (userAnswers == correctAnswer) {
+            scoreTracker.add(Icon(
+              Icons.check,
+              color: Colors.green,
+            ));
+          } else {
+            scoreTracker.add(Icon(
+              Icons.close,
+              color: Colors.red,
+            ));
+          }
+          logicPage.anotherQuestion();
+        }
+      });
+    }
+  }
+
   var questionNumber = 0;
 
   @override
@@ -56,7 +82,7 @@ class _QuestionGroundState extends State<QuestionGround> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                logicPage.getQuestionTexts(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 20,
@@ -75,14 +101,7 @@ class _QuestionGroundState extends State<QuestionGround> {
                 backgroundColor: Colors.green,
               ),
               onPressed: () {
-                setState(() {
-                  scoreTracker.add(
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
-                });
+                answerMarker(true);
               },
               child: Text(
                 'True',
@@ -102,7 +121,9 @@ class _QuestionGroundState extends State<QuestionGround> {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.redAccent,
               ),
-              onPressed: () {},
+              onPressed: () {
+                answerMarker(false);
+              },
               child: Text(
                 'False',
                 style: TextStyle(
