@@ -1,13 +1,13 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter/painting.dart';
+import 'logicPage.dart';
 
+LogicPage logicPage = LogicPage();
 void main() {
-  runApp(const MyApp());
+  runApp(const TrueFalse());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TrueFalse extends StatelessWidget {
+  const TrueFalse({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _QuestionGroundState extends State<QuestionGround> {
         'A Slut\'s blood is green.'
   ];
   var questionNumber = 0;
-  List<bool> correctAnswers = [false, true, true];
+
   @override
   Widget build(BuildContext context) {
     return Column(
